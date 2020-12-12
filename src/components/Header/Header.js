@@ -8,6 +8,8 @@ const Header = () => {
     <Styled.Wrapper>
       <Container>
         <Link to="/">Corridas</Link>
+
+        <Link to="/historicos">historicos</Link>
       </Container>
     </Styled.Wrapper>
   );

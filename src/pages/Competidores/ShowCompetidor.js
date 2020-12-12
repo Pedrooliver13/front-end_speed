@@ -10,7 +10,7 @@ import { showUser } from "../../services/endpoints/competidor";
 const ShowCompetidor = () => {
   const {id} = useParams();
   const [user, setUser] = useState(null);
-
+  
   const dataUser = useCallback(() => {
     showUser(id).then(res => setUser(res.data));
   },[id]);

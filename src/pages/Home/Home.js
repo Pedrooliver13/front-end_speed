@@ -8,16 +8,13 @@ import * as Styled from './styles';
 import Competidor from '../../components/ItemCompetidor/ItemCompetidor';
 import Loading from '../../components/Loading/Loading';
 import Pistas from '../../components/ItemPista/ItemPista';
-import Historicos from '../../components/ItemHistoricos/ItemHistoricos';
 
 import { listUsers } from '../../services/endpoints/competidor';
 import { listPistas } from '../../services/endpoints/pistas';
-import { listHistoricos } from '../../services/endpoints/historicos';
 
 const Home = () => {
   const [users, setUsers] = useState(null);
   const [pistas, setPistas] = useState(null);
-  const [historicos, setHistoricos] = useState(null);
 
   const loadUsers = useCallback(() => {
     listUsers().then((res) => setUsers(res.data));
@@ -27,15 +24,10 @@ const Home = () => {
     listPistas().then((res) => setPistas(res.data));
   }, []);
 
-  const loadHistoricos = useCallback(() => {
-    listHistoricos().then((res) => setHistoricos(res.data));
-  }, []);
-
   useEffect(() => {
     loadUsers();
     loadPistas();
-    loadHistoricos();
-  }, [loadUsers, loadPistas, loadHistoricos]);
+  }, [loadUsers, loadPistas]);
 
   console.log(users);
 
@@ -55,12 +47,6 @@ const Home = () => {
         </Styled.Title>
 
         {pistas && !pistas.message && pistas.map((item) => <Pistas key={item.id} pista={item} />)}
-
-        <Styled.Title>
-          Históricos <Link to="/historico/criar">Criar</Link>
-        </Styled.Title>
-
-        {historicos && !historicos.message && historicos.map((item) => <Historicos key={item.id} historico={item} />)}
       </Container>
     </>
   );

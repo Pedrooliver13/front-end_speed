@@ -15,6 +15,7 @@ import ShowPista from '../pages/Pistas/ShowPista';
 import CreatePistas from '../pages/Pistas/CreatePistas';
 import EditPista from '../pages/Pistas/EditPistas';
 
+import Historicos from '../pages/Historicos/Historicos';
 import CreateHistoricos from '../pages/Historicos/CreateHistoricos';
 import ShowHistorico from '../pages/Historicos/ShowHistoricos';
 import EditHistorico from '../pages/Historicos/EditHistorico';
@@ -35,6 +36,7 @@ const Router = () => {
         <Route path="/pista/:id/edit" component={EditPista} />
         <Route path="/pista/:id" component={ShowPista} />
 
+        <Route path="/historicos" component={Historicos} />
         <Route path="/historico/criar" component={CreateHistoricos} />
         <Route path="/historico/:id/edit" component={EditHistorico} />
         <Route path="/historico/:id" component={ShowHistorico} />

@@ -13,9 +13,7 @@ const ItemHistoricos = ({ historico }) => {
     </div>
 
     <div className="name">
-      <p>{historico.nome}</p>
       <p>{historico.data_corrida}</p>
-      <p>{historico.descricao}</p>
       <p>{historico.tempo} Minutos</p>
     </div>
 

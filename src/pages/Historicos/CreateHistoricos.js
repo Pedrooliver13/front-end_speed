@@ -6,11 +6,11 @@ import { Button } from '../../components/Form/Button/Button';
 import Form from '../../components/Form/Form';
 import Select from '../../components/Form/Select/Select';
 import Input from '../../components/Form/Input/Input';
+import useForm from '../../hooks/useForm';
 
 import { listUsers } from '../../services/endpoints/competidor';
 import { listPistas } from '../../services/endpoints/pistas';
 import { createHistorico } from '../../services/endpoints/historicos';
-import useForm from '../../hooks/useForm';
 import { useHistory } from 'react-router-dom';
 
 const CreateHistoricos = () => {

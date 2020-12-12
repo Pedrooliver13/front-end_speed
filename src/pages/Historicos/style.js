@@ -1,6 +1,22 @@
 import styled from 'styled-components';
 import * as C from '../../styles/Constans';
 
+export const Title = styled.h2`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #43444a;
+  margin-bottom: 1rem;
+
+  a {
+    color: #999;
+  }
+`;
+
 export const ShowHistorico = styled.div`
 margin: 80px auto;
 padding: 64px;

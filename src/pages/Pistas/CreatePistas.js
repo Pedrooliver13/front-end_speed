@@ -7,7 +7,7 @@ import Form from '../../components/Form/Form';
 import TextArea from '../../components/Form/TextArea/TextArea';
 import useForm from '../../hooks/useForm';
 
-import { createPista} from '../../services/endpoints/pistas';
+import { createPista } from '../../services/endpoints/pistas';
 import { useHistory } from 'react-router-dom';
 
 const CreatePistas = () => {
