@@ -29,8 +29,6 @@ const Home = () => {
     loadPistas();
   }, [loadUsers, loadPistas]);
 
-  console.log(users);
-
   return (
     <>
       {!users && !pistas && <Loading />}

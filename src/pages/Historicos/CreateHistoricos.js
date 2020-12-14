@@ -56,7 +56,7 @@ const CreateHistoricos = () => {
           label="Competidor"
           name="competidor_id"
           value={competidorId}
-          setValue={setCompetidorId}
+          setValue={({ target }) => setCompetidorId(target.value)}
         >
           {users &&
             !users.message &&
@@ -71,7 +71,8 @@ const CreateHistoricos = () => {
           name="pista_id"
           options={['Interlagos', 'Baron']}
           value={pistaId}
-          setValue={setPistaId}
+          setValue={({ target }) => setPistaId(target.value)}
+
         >
           {pistas &&
             !pistas.message &&

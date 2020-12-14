@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Styled from './style';
 
-const TextArea = ({ name, label, value, placeholder, onBlur, error, onChange }) => {
+const TextArea = ({ name, label, value, placeholder, defaultValue, onBlur, error, onChange }) => {
   return (
     <label htmlFor={name}>
       {label}
@@ -11,6 +11,7 @@ const TextArea = ({ name, label, value, placeholder, onBlur, error, onChange }) 
         value={value}
         placeholder={placeholder}
         rows="5"
+        defaultValue={defaultValue}
         onChange={onChange}
         onBlur={onBlur}
       />

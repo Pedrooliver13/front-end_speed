@@ -9,7 +9,7 @@ const Header = () => {
       <Container>
         <Link to="/">Corridas</Link>
 
-        <Link to="/historicos">historicos</Link>
+        <Link to="/historicos">Históricos</Link>
       </Container>
     </Styled.Wrapper>
   );

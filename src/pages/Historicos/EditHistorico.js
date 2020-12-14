@@ -12,9 +12,8 @@ import { listPistas } from '../../services/endpoints/pistas';
 import {
   editHistorico,
   showHistorico,
-  deleteHistorico
+  deleteHistorico,
 } from '../../services/endpoints/historicos';
-import useForm from '../../hooks/useForm';
 import { useHistory, useParams } from 'react-router-dom';
 
 const CreateHistoricos = () => {
@@ -24,11 +23,6 @@ const CreateHistoricos = () => {
   const [pistas, setPistas] = useState(null);
   const [users, setUsers] = useState(null);
   const [infoHistorico, setInfoHistorico] = useState([]);
-
-  const [competidorId, setCompetidorId] = useState('');
-  const [pistaId, setPistaId] = useState('');
-  const date = useForm('date');
-  const tempo = useForm();
 
   const loadUsers = useCallback(() => {
     listUsers().then((res) => setUsers(res.data));
@@ -43,7 +37,8 @@ const CreateHistoricos = () => {
   }, [id]);
 
   const changeValue = ({ target }, field) => {
-    if (target.value === '') return;
+    if (target.value === '')
+      return alert('Por favor, preencha todos os campos');
 
     setInfoHistorico({
       ...infoHistorico,
@@ -59,70 +54,86 @@ const CreateHistoricos = () => {
 
   function onSubmit() {
     if (
-      competidorId.length &&
-      pistaId.length &&
-      date.validate() &&
-      tempo.validate()
+      infoHistorico.competidor_id !== '' &&
+      infoHistorico.pista_id !== '' &&
+      infoHistorico.data_corrida &&
+      infoHistorico.tempo
     ) {
-      editHistorico(id, competidorId, pistaId, date.value, tempo.value);
+      editHistorico(
+        id,
+        infoHistorico.competidor_id,
+        infoHistorico.pista_id,
+        infoHistorico.data_corrida,
+        infoHistorico.tempo,
+      );
       history.push('/');
     }
   }
 
-  function onDelete() {
-    deleteHistorico(id);
-    history.push('/');
-  }
+  const onDelete = (event) => {
+    const confirmation = window.confirm('Deseja deletar?');
+
+    if (!confirmation) {
+      event.preventDefault();
+    }
+
+    if (confirmation) {
+      deleteHistorico(id).then((res) => console.log(res));
+      history.push('/');
+    }
+  };
 
   return (
     <Container>
-      <Form title="Editar Histórico">
-        <Select
-          label="Competidor"
-          name="competidor_id"
-          value={competidorId}
-          setValue={setCompetidorId}
-          onBlur={(e) => changeValue(e, 'competidor_id')}
-        >
-          {users &&
-            !users.message &&
-            users.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.nome}
-              </option>
-            ))}
-        </Select>
-        <Select
-          label="Pistas"
-          name="pista_id"
-          value={pistaId}
-          setValue={setPistaId}
-          onBlur={(e) => changeValue(e, 'pista_id')}
-        >
-          {pistas &&
-            !pistas.message &&
-            pistas.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.descricao}
-              </option>
-            ))}
-        </Select>
-        <Input
-          label="Data da Corrida"
-          placeholder={infoHistorico && infoHistorico.data_corrida}
-          {...date}
-        />
-        <Input
-          label="Tempo Gasto"
-          placeholder={infoHistorico && infoHistorico.tempo}
-          {...tempo}
-        />
+      {infoHistorico && infoHistorico.id && (
+        <Form title="Editar Histórico">
+          <Select
+            label="Competidor"
+            name="competidor_id"
+            defaultValue={infoHistorico.competidor_id}
+            onBlur={(e) => changeValue(e, 'competidor_id')}
+          >
+            {users &&
+              !users.message &&
+              users.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.nome}
+                </option>
+              ))}
+          </Select>
+          <Select
+            label="Pistas"
+            name="pista_id"
+            defaultValue={infoHistorico.pista_id}
+            onBlur={(e) => changeValue(e, 'pista_id')}
+          >
+            {pistas &&
+              !pistas.message &&
+              pistas.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.descricao}
+                </option>
+              ))}
+          </Select>
+          <Input
+            type="text"
+            label="Data da Corrida"
+            defaultValue={infoHistorico.data_corrida}
+            onBlur={(e) => changeValue(e, 'data_corrida')}
+          />
+          <Input
+            type="number"
+            label="Tempo Gasto"
+            defaultValue={infoHistorico.tempo}
+            onBlur={(e) => changeValue(e, 'tempo')}
+          />
 
-        <Group>
-          <ButtonRed onClick={onDelete}>Remover</ButtonRed>
-          <Button onClick={onSubmit}>Atualizar</Button>
-        </Group>
-      </Form>
+          <Group>
+            <ButtonRed onClick={onDelete}>Remover</ButtonRed>
+            <Button onClick={onSubmit}>Atualizar</Button>
+          </Group>
+        </Form>
+      )}
     </Container>
   );
 };
